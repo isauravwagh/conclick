@@ -1,0 +1,99 @@
+---
+# ConClick Analytics - Docker Compose Configuration
+# This configuration sets up ConClick Analytics with PostgreSQL database
+
+services:
+  conclick:
+    # For production, build your own custom image:
+    # build: .
+    # image: yourcompany/conclick-analytics:latest
+
+    # For development/testing, you can use the base Umami image:
+    image: ghcr.io/umami-software/umami:latest
+
+    container_name: conclick-analytics
+    ports:
+      - "3000:3000"
+    environment:
+      # Database Configuration
+      DATABASE_URL: postgresql://conclick:conclick@db:5432/conclick
+      DATABASE_TYPE: postgresql
+
+      # Application Secret - CHANGE THIS!
+      # Generate with: openssl rand -base64 32
+      APP_SECRET: replace-me-with-a-random-string
+
+      # ConClick Branding
+      APP_NAME: ConClick Analytics
+      COMPANY_NAME: ConClick Inc.
+      SUPPORT_EMAIL: support@conclick.io
+
+      # Tracker Configuration
+      TRACKER_SCRIPT_NAME: analytics.js
+      COLLECT_API_ENDPOINT: /api/collect
+
+      # Privacy & Security
+      DISABLE_TELEMETRY: "true"
+      DISABLE_UPDATES: "true"
+      DISABLE_BOT_CHECK: "false"
+
+      # Optional: Client IP detection (uncomment if behind proxy)
+      # CLIENT_IP_HEADER: X-Forwarded-For
+
+      # Optional: Ignore specific IPs from tracking
+      # IGNORE_IP: 127.0.0.1,::1
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    init: true
+    restart: always
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/heartbeat || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  db:
+    image: postgres:15-alpine
+    container_name: conclick-db
+    environment:
+      POSTGRES_DB: conclick
+      POSTGRES_USER: conclick
+      POSTGRES_PASSWORD: conclick
+      # For production, use strong passwords and consider using secrets:
+      # POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    volumes:
+      - conclick-db-data:/var/lib/postgresql/data
+      # Optional: Custom PostgreSQL configuration
+      # - ./postgres.conf:/etc/postgresql/postgresql.conf
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  conclick-db-data:
+    driver: local
+    # Optional: Use named volume with custom driver options
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /path/to/data
+
+# Optional: Networks configuration
+# networks:
+#   conclick-network:
+#     driver: bridge
+
+# Optional: Secrets (for production)
+# secrets:
+#   db_password:
+#     file: ./secrets/db_password.txt
+#   app_secret:
+#     file: ./secrets/app_secret.txt

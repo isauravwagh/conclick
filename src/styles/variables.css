@@ -1,0 +1,47 @@
+/**
+ * ConClick Analytics - Custom Theme Variables
+ *
+ * These CSS variables define the visual identity of ConClick Analytics.
+ * Modify these values to customize the appearance for your brand.
+ */
+
+html body {
+  /* Primary Brand Colors */
+  --primary-color: #0066FF;
+  --primary-color-hover: #0052CC;
+  --primary-color-active: #003D99;
+  --primary-font-color: var(--light-color);
+
+  /* Accent Colors */
+  --accent-color: #10B981;
+  --accent-color-hover: #059669;
+
+  /* Secondary Colors */
+  --secondary-color: #6B7280;
+  --secondary-color-hover: #4B5563;
+
+  /* Status Colors */
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --error-color: #EF4444;
+  --info-color: #3B82F6;
+
+  /* Chart Colors (ConClick branded) */
+  --chart-color-1: #0066FF;
+  --chart-color-2: #10B981;
+  --chart-color-3: #F59E0B;
+  --chart-color-4: #8B5CF6;
+  --chart-color-5: #EC4899;
+  --chart-color-6: #14B8A6;
+  --chart-color-7: #F97316;
+  --chart-color-8: #6366F1;
+}
+
+/* Dark Mode Overrides */
+html[data-theme='dark'] body {
+  --primary-color: #3B82F6;
+  --primary-color-hover: #2563EB;
+  --primary-color-active: #1D4ED8;
+  --accent-color: #34D399;
+  --accent-color-hover: #10B981;
+}
