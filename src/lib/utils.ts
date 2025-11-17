@@ -1,3 +1,34 @@
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+/**
+ * Utility function to merge Tailwind CSS classes
+ * Uses clsx for conditional classes and tailwind-merge to handle conflicts
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+/**
+ * Get initials from name
+ */
+export function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase()
+    .substring(0, 2)
+}
+
+/**
+ * Truncate text with ellipsis
+ */
+export function truncate(text: string, length: number): string {
+  if (text.length <= length) return text
+  return text.substring(0, length) + '...'
+}
+
 export function hook(
   _this: { [x: string]: any },
   method: string | number,

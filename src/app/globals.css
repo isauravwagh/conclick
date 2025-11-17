@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* ConClick Primary - Blue (#0066FF) */
+    --primary: 217 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    /* ConClick Accent - Green (#10B981) */
+    --accent: 158 84% 39%;
+    --accent-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 100% 50%;
+
+    --radius: 0.5rem;
+
+    /* Chart colors */
+    --chart-1: 217 100% 50%;
+    --chart-2: 158 84% 39%;
+    --chart-3: 38 100% 50%;
+    --chart-4: 258 77% 63%;
+    --chart-5: 330 82% 60%;
+    --chart-6: 174 72% 41%;
+    --chart-7: 24 100% 54%;
+    --chart-8: 239 84% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    /* ConClick Primary - Lighter Blue for dark mode (#3B82F6) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    /* ConClick Accent - Lighter Green for dark mode (#34D399) */
+    --accent: 158 64% 52%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217 91% 60%;
+
+    /* Chart colors - adjusted for dark mode */
+    --chart-1: 217 91% 60%;
+    --chart-2: 158 64% 52%;
+    --chart-3: 43 96% 67%;
+    --chart-4: 258 77% 63%;
+    --chart-5: 330 82% 60%;
+    --chart-6: 174 72% 56%;
+    --chart-7: 24 100% 66%;
+    --chart-8: 239 84% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-muted rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  .gradient-card {
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-background/80 backdrop-blur-md border border-border/50;
+  }
+
+  /* Smooth animations */
+  .animate-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-out {
+    animation: fade-out 0.3s ease-out;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Modern card with hover effect */
+  .card-interactive {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply rounded-lg border bg-card p-6 shadow-sm card-interactive;
+  }
+
+  /* Dashboard grid */
+  .dashboard-grid {
+    @apply grid gap-4 md:gap-6 lg:gap-8;
+  }
+
+  /* Section heading */
+  .section-heading {
+    @apply text-2xl font-bold tracking-tight;
+  }
+
+  /* Metric label */
+  .metric-label {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  /* Metric value */
+  .metric-value {
+    @apply text-3xl font-bold;
+  }
+}
