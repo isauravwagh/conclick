@@ -1,19 +1,15 @@
 'use client';
 import { TeamsDataTable } from '@/app/(main)/teams/TeamsDataTable';
 import { TeamsHeader } from '@/app/(main)/teams/TeamsHeader';
-import { Column } from '@umami/react-zen';
-import { Panel } from '@/components/common/Panel';
-import { PageBody } from '@/components/common/PageBody';
+import { Card } from '@/components/ui/card';
 
 export function TeamsPage() {
   return (
-    <PageBody>
-      <Column gap="6">
-        <TeamsHeader />
-        <Panel>
-          <TeamsDataTable />
-        </Panel>
-      </Column>
-    </PageBody>
+    <div className="flex flex-col gap-6 p-6">
+      <TeamsHeader />
+      <Card className="p-6">
+        <TeamsDataTable />
+      </Card>
+    </div>
   );
 }
