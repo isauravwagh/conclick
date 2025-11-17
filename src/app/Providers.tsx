@@ -6,6 +6,8 @@ import { ZenProvider, RouterProvider } from '@umami/react-zen';
 import { useRouter } from 'next/navigation';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { useLocale } from '@/components/hooks';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
 import 'chartjs-adapter-date-fns';
 
 const client = new QueryClient({
@@ -49,14 +51,22 @@ export function Providers({ children }) {
   }
 
   return (
-    <ZenProvider>
-      <RouterProvider navigate={navigate}>
-        <MessagesProvider>
-          <QueryClientProvider client={client}>
-            <ErrorBoundary>{children}</ErrorBoundary>
-          </QueryClientProvider>
-        </MessagesProvider>
-      </RouterProvider>
-    </ZenProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <ZenProvider>
+        <RouterProvider navigate={navigate}>
+          <MessagesProvider>
+            <QueryClientProvider client={client}>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </QueryClientProvider>
+          </MessagesProvider>
+        </RouterProvider>
+      </ZenProvider>
+      <Toaster />
+    </ThemeProvider>
   );
 }

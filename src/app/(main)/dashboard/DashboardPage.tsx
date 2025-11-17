@@ -3,6 +3,7 @@ import { Column } from '@umami/react-zen';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useMessages } from '@/components/hooks';
 import { PageBody } from '@/components/common/PageBody';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export function DashboardPage() {
   const { formatMessage, labels } = useMessages();
@@ -10,7 +11,10 @@ export function DashboardPage() {
   return (
     <PageBody>
       <Column margin="2">
-        <PageHeader title={formatMessage(labels.dashboard)}></PageHeader>
+        <div className="flex items-center justify-between">
+          <PageHeader title={formatMessage(labels.dashboard)}></PageHeader>
+          <ThemeToggle />
+        </div>
       </Column>
     </PageBody>
   );
